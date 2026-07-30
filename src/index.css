@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;600;700&display=swap');
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+/* Numbered teardrop pin rendered as a Leaflet divIcon (no image assets needed). */
+.condo-pin-wrapper {
+  background: transparent;
+  border: 0;
+}
+
+.condo-pin {
+  width: 30px;
+  height: 30px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: #b3261e;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 35%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.condo-pin span {
+  transform: rotate(45deg);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  font-family: system-ui, sans-serif;
+}
+
+.condo-pin--selected {
+  width: 40px;
+  height: 40px;
+  background: #1f6feb;
+}
+
+.condo-pin--selected span {
+  font-size: 14px;
+}
+
+.leaflet-popup-content {
+  margin: 12px 14px;
+  min-width: 200px;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 10px;
+}
+
+/* Leaflet styles every popup anchor as a plain blue link — let MUI's button win. */
+.leaflet-popup-content a.MuiButtonBase-root {
+  color: #ffffff;
+  text-decoration: none;
+}
