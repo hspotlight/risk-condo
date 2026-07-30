@@ -19,6 +19,13 @@ export interface Reference {
  */
 export const references: Reference[] = [
   {
+    titleTh: 'รายชื่อ 50 คอนโดที่สภาผู้บริโภคระบุ (โพสต์ต้นทาง)',
+    titleEn: 'The 50 condos named by the Consumer Council (original post)',
+    publisherTh: 'สภาองค์กรของผู้บริโภค (Facebook)',
+    publisherEn: 'Thailand Consumer Council (Facebook)',
+    url: 'https://www.facebook.com/tccthailand/posts/pfbid0zUuLbEcnkt74PsAzVB42QwGkBjWEc9EbDT9EVE6rRPwgUejpEARcgx6reigimLQbl',
+  },
+  {
     titleTh: 'ต้องสูญอีกกี่ชีวิต? ยื่นสอบ 50 อาคารสูง หลังเหตุไฟไหม้คอนโด',
     titleEn: 'How many more lives? Council asks BMA to inspect 50 high-rises after a condo fire',
     publisherTh: 'สภาองค์กรของผู้บริโภค',

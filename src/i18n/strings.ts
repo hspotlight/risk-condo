@@ -54,6 +54,15 @@ export interface Strings {
   // Mobile tabs
   tabTable: string
   tabMap: string
+
+  // Footer
+  footerCraftedBy: string
+  footerContribute: string
+
+  // Locate
+  locateMe: string
+  locating: string
+  locateDenied: string
 }
 
 export const strings: Record<Lang, Strings> = {
@@ -113,6 +122,13 @@ export const strings: Record<Lang, Strings> = {
 
     tabTable: 'ตาราง',
     tabMap: 'แผนที่',
+
+    footerCraftedBy: 'จัดทำโดย HSpotlight',
+    footerContribute: 'ร่วมพัฒนาบน GitHub',
+
+    locateMe: 'ตำแหน่งของฉัน',
+    locating: 'กำลังระบุ...',
+    locateDenied: 'ไม่สามารถเข้าถึงตำแหน่งได้',
   },
 
   en: {
@@ -172,5 +188,12 @@ export const strings: Record<Lang, Strings> = {
 
     tabTable: 'Table',
     tabMap: 'Map',
+
+    footerCraftedBy: 'Crafted by HSpotlight',
+    footerContribute: 'Contribute on GitHub',
+
+    locateMe: 'My location',
+    locating: 'Locating...',
+    locateDenied: 'Location access denied',
   },
 }

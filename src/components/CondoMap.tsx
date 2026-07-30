@@ -1,9 +1,12 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import L from 'leaflet'
-import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
+import { CircleMarker, MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
+import MyLocationIcon from '@mui/icons-material/MyLocation'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
+import CircularProgress from '@mui/material/CircularProgress'
+import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import 'leaflet/dist/leaflet.css'
 import { useI18n } from '../i18n/context'
@@ -78,6 +81,12 @@ function ViewportSync({
   return null
 }
 
+function MapRefCapture({ mapRef }: { mapRef: React.MutableRefObject<L.Map | null> }) {
+  const map = useMap()
+  useEffect(() => { mapRef.current = map }, [map, mapRef])
+  return null
+}
+
 interface CondoMapProps {
   condos: Condo[]
   selectedId: number | null
@@ -89,10 +98,32 @@ interface CondoMapProps {
 export default function CondoMap({ condos, selectedId, onSelect, active = true }: CondoMapProps) {
   const { lang, t } = useI18n()
   const markerRefs = useRef(new Map<number, L.Marker>())
+  const mapRef = useRef<L.Map | null>(null)
+  const [userLocation, setUserLocation] = useState<L.LatLng | null>(null)
+  const [locating, setLocating] = useState(false)
+  const [locateError, setLocateError] = useState(false)
   const selected = useMemo(
     () => condos.find((condo) => condo.id === selectedId),
     [condos, selectedId],
   )
+
+  const handleLocate = () => {
+    if (!navigator.geolocation) return
+    setLocating(true)
+    setLocateError(false)
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const latlng = L.latLng(pos.coords.latitude, pos.coords.longitude)
+        setUserLocation(latlng)
+        mapRef.current?.flyTo(latlng, 15, { duration: 1 })
+        setLocating(false)
+      },
+      () => {
+        setLocating(false)
+        setLocateError(true)
+      },
+    )
+  }
 
   // Open the popup of whatever the table selected, once the map is on screen.
   useEffect(() => {
@@ -114,7 +145,15 @@ export default function CondoMap({ condos, selectedId, onSelect, active = true }
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           maxZoom={19}
         />
+        <MapRefCapture mapRef={mapRef} />
         <ViewportSync condos={condos} selected={selected} active={active} />
+        {userLocation && (
+          <CircleMarker
+            center={userLocation}
+            radius={10}
+            pathOptions={{ color: '#1565c0', fillColor: '#1976d2', fillOpacity: 0.85, weight: 2 }}
+          />
+        )}
         {condos.map((condo) => (
           <Marker
             key={condo.id}
@@ -169,6 +208,42 @@ export default function CondoMap({ condos, selectedId, onSelect, active = true }
           {t.pinCount(condos.length)}
         </Typography>
       </Box>
+
+      <Tooltip title={locateError ? t.locateDenied : t.locateMe} placement="left">
+        <Box
+          component="button"
+          onClick={handleLocate}
+          disabled={locating}
+          aria-label={t.locateMe}
+          sx={{
+            position: 'absolute',
+            bottom: 32,
+            right: 12,
+            zIndex: 500,
+            width: 40,
+            height: 40,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            bgcolor: locateError ? 'error.light' : 'rgba(255,255,255,0.94)',
+            border: '1px solid',
+            borderColor: locateError ? 'error.main' : 'divider',
+            borderRadius: 1.5,
+            boxShadow: 2,
+            cursor: locating ? 'default' : 'pointer',
+            '&:hover': { bgcolor: locateError ? 'error.light' : 'rgba(240,240,240,0.97)' },
+          }}
+        >
+          {locating ? (
+            <CircularProgress size={18} thickness={5} />
+          ) : (
+            <MyLocationIcon
+              fontSize="small"
+              sx={{ color: locateError ? 'error.main' : userLocation ? 'primary.main' : 'action.active' }}
+            />
+          )}
+        </Box>
+      </Tooltip>
     </Box>
   )
 }

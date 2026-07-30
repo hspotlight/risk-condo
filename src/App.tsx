@@ -5,6 +5,7 @@ import Alert from '@mui/material/Alert'
 import Box from '@mui/material/Box'
 import Chip from '@mui/material/Chip'
 import CssBaseline from '@mui/material/CssBaseline'
+import Link from '@mui/material/Link'
 import Paper from '@mui/material/Paper'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
@@ -229,6 +230,46 @@ function CondoExplorer() {
           </Box>
         </Box>
       )}
+
+      <Box
+        component="footer"
+        sx={{
+          px: 2,
+          py: 1,
+          borderTop: 1,
+          borderColor: 'divider',
+          flexShrink: 0,
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: 1.5,
+          alignItems: 'center',
+          bgcolor: 'background.paper',
+        }}
+      >
+        <Typography variant="caption" color="text.secondary">
+          <Link
+            href="https://www.facebook.com/HSpotlight"
+            target="_blank"
+            rel="noreferrer noopener"
+            underline="hover"
+          >
+            {t.footerCraftedBy}
+          </Link>
+        </Typography>
+        <Typography variant="caption" color="text.secondary" sx={{ mx: 0.5 }}>
+          ·
+        </Typography>
+        <Typography variant="caption" color="text.secondary">
+          <Link
+            href="https://github.com/hspotlight/risk-condo"
+            target="_blank"
+            rel="noreferrer noopener"
+            underline="hover"
+          >
+            {t.footerContribute}
+          </Link>
+        </Typography>
+      </Box>
     </Box>
   )
 }
