@@ -100,22 +100,24 @@ export default function WhyItMatters() {
           alignItems: 'center',
           gap: 1,
           px: 2,
-          py: { xs: 0.5, md: 0.75 },
-          flexWrap: 'wrap',
+          py: { xs: 0.25, md: 0.75 },
+          flexWrap: 'nowrap',
         }}
       >
-        <LocalFireDepartmentIcon fontSize="small" sx={{ color: 'primary.main' }} />
+        <LocalFireDepartmentIcon fontSize="small" sx={{ color: 'primary.main', flexShrink: 0 }} />
         <Typography
           variant="body2"
           sx={{
             fontWeight: 600,
-            flex: '1 1 200px',
+            flex: '1 1 0',
             minWidth: 0,
             fontSize: { xs: '0.8rem', md: '0.875rem' },
+            display: { xs: 'none', md: 'block' },
           }}
         >
           {t.whyHook}
         </Typography>
+        <Box sx={{ flex: { xs: 1, md: 'none' } }} />
         <Button
           size="small"
           onClick={() => setOpen((current) => !current)}

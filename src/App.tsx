@@ -3,7 +3,6 @@ import MapIcon from '@mui/icons-material/Map'
 import TableRowsIcon from '@mui/icons-material/TableRows'
 import Alert from '@mui/material/Alert'
 import Box from '@mui/material/Box'
-import Chip from '@mui/material/Chip'
 import CssBaseline from '@mui/material/CssBaseline'
 import Link from '@mui/material/Link'
 import Paper from '@mui/material/Paper'
@@ -119,13 +118,6 @@ function CondoExplorer() {
         onDistrictChange={handleDistrictChange}
         districts={districts}
       />
-      <Box sx={{ px: 2, pb: 1 }}>
-        <Chip
-          size="small"
-          color={filtered.length === condos.length ? 'default' : 'primary'}
-          label={t.resultCount(filtered.length, condos.length)}
-        />
-      </Box>
       <CondoTable
         rows={paged}
         total={sorted.length}

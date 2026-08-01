@@ -43,20 +43,19 @@ export default function FilterBar({
       sx={{
         display: 'flex',
         gap: 1.5,
-        flexWrap: 'wrap',
+        flexWrap: 'nowrap',
         alignItems: 'center',
         px: 2,
-        py: 1.5,
+        py: { xs: 1, md: 1.5 },
       }}
     >
       <TextField
         size="small"
-        fullWidth
         value={query}
         onChange={(event) => onQueryChange(event.target.value)}
         placeholder={t.searchPlaceholder}
         aria-label={t.searchAriaLabel}
-        sx={{ flex: '1 1 220px' }}
+        sx={{ flex: '1 1 0', minWidth: 0 }}
         slotProps={{
           input: {
             startAdornment: (
@@ -74,7 +73,7 @@ export default function FilterBar({
           },
         }}
       />
-      <FormControl size="small" sx={{ flex: '0 1 190px', minWidth: 150 }}>
+      <FormControl size="small" sx={{ flex: '0 0 130px' }}>
         <InputLabel id="district-filter-label">{t.districtLabel}</InputLabel>
         <Select
           labelId="district-filter-label"
